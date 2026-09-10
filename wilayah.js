@@ -2,7 +2,6 @@ function testAlert(msg) {
   alert(msg);
 }
 
-/**
 function selectWilayah ( provinceID, regencyID, districtID, villageID ) {
 
   const BASE_API_URL = "https://api.kodewilayah.web.id";
@@ -34,4 +33,3 @@ function selectWilayah ( provinceID, regencyID, districtID, villageID ) {
           });
 
 }
-*/
