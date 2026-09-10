@@ -2,11 +2,11 @@ function testAlert(msg) {
   alert(msg);
 }
 
+/**
 function selectWilayah ( provinceID, regencyID, districtID, villageID ) {
 
   const BASE_API_URL = "https://api.kodewilayah.web.id";
 
-  /** Daftar Provinsi */
   fetch(BASE_API_URL + "/provinces")
         .then(response => {
               if (!response.ok) {
@@ -34,3 +34,4 @@ function selectWilayah ( provinceID, regencyID, districtID, villageID ) {
           });
 
 }
+*/
