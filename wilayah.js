@@ -5,6 +5,7 @@ function testAlert(msg) {
 function selectWilayah ( provinceID, regencyID, districtID, villageID ) {
 
   alert(provinceID);
+  /**
   const BASE_API_URL = "https://api.kodewilayah.web.id";
 
   fetch(BASE_API_URL + "/provinces")
@@ -32,5 +33,5 @@ function selectWilayah ( provinceID, regencyID, districtID, villageID ) {
               console.error(error);
               alert("Terjadi kesalahan saat mengambil data provinsi.");
           });
-
+  */
 }
