@@ -13,4 +13,4 @@ For the implementation and usage of each file/class, please follow the notes bel
    You can also download `Wilayah.js` and load it locally. The library will still work properly as long as an internet connection is available to access the API.
 
 7. **Example implementation**
-   A simple implementation example is provided in `Wilayah.html`.
+   A simple implementation example is provided in `wilayah.html`.
