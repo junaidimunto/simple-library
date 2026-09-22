@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="description" value="Page for testing the basic script of Wilayah Indonesia"/>
+  <title>Wilayah Indonesia</title>
+  <style>
+    .class-select {
+		  color: black;
+		  border: 1px solid grey;
+			padding: 7px 5px;
+		}
+		#wilayah > div {
+			margin-bottom: 10px;
+		}
+		#wilayah > div > select {
+			padding: 5px;
+		}
+  </style>
+</head>
+<body>
+  
+  <h2>Wilayah Indonesia</h2>
+  
+  <!--- JS Script 
+  <script src="https://cdn.jsdelivr.net/gh/junaidimunto/simple-library@main/wilayah.js" type="text/javascript"></script> -->
+  <script src="Wilayah.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    
+		//modify params as your desired select tag id/name, ex: select-province
+		//you can leave it blank like this: wilayahku = new Wilayah(); the default values in constructor
+    wilayahku = new Wilayah("provinceSelectTag", "regencySelectTag", "districtSelectTag", "villageSelectTag");
+		
+		//params 1 (class) and 2 (attr) are optional, you can leave it blank
+		wilayahku.printProvinceSelect("Pilih Provinsi", "class-select", "required");
+		document.write("<br><br>");
+		
+		wilayahku.printRegencySelect("Pilih Kabupaten/Kota", "class-select", "required");
+		document.write("<br><br>");
+		
+		wilayahku.printDistrictSelect("Pilih Kecamatan/Distrik", "class-select", "required");
+		document.write("<br><br>");
+		
+		wilayahku.printVillageSelect("Pilih Desa/Kelurahan", "class-select", "required");
+		document.write("<br><br>");
+		
+		wilayahku.performChangingSelect();
+
+  </script>
+	
+	<h2>Example 2</h2>
+	
+	<!-- script Wilayah.js already loaded before -->
+	<script>wilayahmu = new Wilayah();</script>
+	<div id="wilayah">
+		<div>
+			Province : <script>wilayahmu.printProvinceSelect("Choose the province");</script>
+		</div>
+		<div>
+			Regency : <script>wilayahmu.printRegencySelect("Choose the regency");</script>
+		</div>
+		<div>
+			District : <script>wilayahmu.printDistrictSelect("Choose the district");</script>
+		</div>
+		<div>
+			Village : <script>wilayahmu.printVillageSelect("Choose the village");</script>
+		</div>
+	</div>
+	<script>wilayahmu.performChangingSelect();</script>
+	
+</body>
+<html>
