@@ -3,7 +3,7 @@ For the implementation and usage of each file/class, please follow the notes bel
 ### Wilayah.js
 
 1. **Online API required**
-   This library uses vanilla js and works online and fetches regional data from the [Kode Wilayah API](https://api.kodewilayah.web.id).
+   This library uses vanilla js and works online and fetches regional data from the [Kode Wilayah API](https://kodewilayah.web.id).
 
 3. **CDN is recommended**
    Loading the library via CDN is recommended to ensure you are using the latest version:
