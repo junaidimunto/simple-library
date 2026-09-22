@@ -1,24 +1,25 @@
 class Wilayah {
 	
-	constructor(provinceID, regencyID, districtID, villageID) {
+	constructor(provinceID = "", regencyID = "" , districtID = "", villageID = "") {
 		
 		//tag select ID and name are identic
-		this.provinceID 	= provinceID;
-		this.regencyID 		= regencyID;
-		this.districtID		= districtID;
-		this.villageID 		= villageID;
-		this.provinceName	= provinceID;
-		this.regencyName 	= regencyID;
-		this.districtName	= districtID;
-		this.villageName 	= villageID;
+		this.provinceID 	= provinceID !== "" ? provinceID : "provinceSelect" ;
+		this.regencyID 		= regencyID !== "" ? regencyID : "regencySelect";
+		this.districtID		= districtID !== "" ? districtID : "districtSelect";
+		this.villageID 		= villageID !== "" ? villageID : "villageSelect";
 		
-		//label for first option
-		this.provinceLabel = "";
-		this.regencyLabel  = "";
-		this.districtLabel = "";
-		this.villageLabel  = "";
+		this.provinceName	= this.provinceID;
+		this.regencyName 	= this.regencyID;
+		this.districtName	= this.districtID;
+		this.villageName 	= this.villageID;
 		
-		//need a validation before use	
+		//label for first option, default in bahasa
+		this.provinceLabel = "Pilih provinsi";
+		this.regencyLabel  = "Pilih kabupaten";
+		this.districtLabel = "Pilih kecamatan";
+		this.villageLabel  = "Pilih kelurahan";
+		
+		//need a validation before use, the url might be changed or removed
 		this.BASE_API_URL	= "https://api.kodewilayah.web.id";
 	}
 	
@@ -75,7 +76,7 @@ class Wilayah {
 		const firstOption = "<option>"+label+"</option>";
 		
 		document.write(openerTag + firstOption + closeTag);
-		document.getElementById(this.provinceID).classList.add(cssClass);
+		if(cssClass) document.getElementById(this.provinceID).classList.add(cssClass);
 		
 		const data = await this.getProvinces();
 		const selects = document.getElementById(this.provinceID);
@@ -96,7 +97,7 @@ class Wilayah {
 		const firstOption = "<option>"+label+"</option>";
 		
 		document.write(openerTag + firstOption + closeTag);
-		document.getElementById(this.regencyID).classList.add(cssClass);
+		if(cssClass) document.getElementById(this.regencyID).classList.add(cssClass);
 		
 	}
 	
@@ -117,6 +118,7 @@ class Wilayah {
 			selects.appendChild(options);
 		});
 		
+		
 	}
 	
 	async printDistrictSelect(label, cssClass = "", attr = "") { //optional attr like required or others
@@ -127,19 +129,7 @@ class Wilayah {
 		const firstOption = "<option>"+label+"</option>";
 		
 		document.write(openerTag + firstOption + closeTag);
-		document.getElementById(this.districtID).classList.add(cssClass);
-		
-		/** will be implemented nex version
-		
-		const select = document.createElement("select");
-
-		select.classList.add(cssClass);
-		select.id = this.districtID;
-		select.name = this.districtName;
-		select.append(new Option(label));
-		
-		document.getElementById(this.districtID).append(select);
-		*/
+		if(cssClass) document.getElementById(this.districtID).classList.add(cssClass);
 		
 	}
 	
@@ -169,7 +159,7 @@ class Wilayah {
 		const firstOption = "<option>"+label+"</option>";
 		
 		document.write(openerTag + firstOption + closeTag);
-		document.getElementById(this.villageID).classList.add(cssClass);		
+		if(cssClass) document.getElementById(this.villageID).classList.add(cssClass);		
 		
 	}
 
@@ -191,17 +181,17 @@ class Wilayah {
 	performChangingSelect() {
 		
 		document.getElementById(this.provinceID).addEventListener("change", e => {
-			wilayahku.updateRegencySelect(e.target.value, this.regencyLabel);
+			this.updateRegencySelect(e.target.value, this.regencyLabel);
 		});
 		
 		document.getElementById(this.regencyID).addEventListener("change", e => {
-			wilayahku.updateDistrictSelect(e.target.value, this.districtLabel);
+			this.updateDistrictSelect(e.target.value, this.districtLabel);
 		});
 		
 		document.getElementById(this.districtID).addEventListener("change", e => {
-			wilayahku.updateVillageSelect(e.target.value, this.villageLabel);
+			this.updateVillageSelect(e.target.value, this.villageLabel);
 		});
 		
 	}
-
+	
 }
