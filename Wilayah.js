@@ -2,16 +2,13 @@ class Wilayah {
 	
 	constructor(provinceID = "", regencyID = "" , districtID = "", villageID = "") {
 		
-		//tag select ID and name are identic
+		//tag select ID and name are identic : default value is right there
 		this.provinceID 	= provinceID !== "" ? provinceID : "provinceSelect" ;
 		this.regencyID 		= regencyID !== "" ? regencyID : "regencySelect";
 		this.districtID		= districtID !== "" ? districtID : "districtSelect";
 		this.villageID 		= villageID !== "" ? villageID : "villageSelect";
 		
-		this.provinceName	= this.provinceID;
-		this.regencyName 	= this.regencyID;
-		this.districtName	= this.districtID;
-		this.villageName 	= this.villageID;
+		this.checkCurrentSelect();
 		
 		//label for first option, default in bahasa
 		this.provinceLabel = "Pilih provinsi";
@@ -19,12 +16,50 @@ class Wilayah {
 		this.districtLabel = "Pilih kecamatan";
 		this.villageLabel  = "Pilih kelurahan";
 		
-		//need a validation before use, the url might be changed or removed
+		this.checkCurrentLabel();
+		
+		//need a validation before use	
 		this.BASE_API_URL	= "https://api.kodewilayah.web.id";
 	}
 	
 	testAlert(msg) {
 		alert(msg);
+	}
+	
+	//checking constructor based on existing selects id with its name
+	checkCurrentSelect() {
+		
+		let name = document.getElementById(this.provinceID)?.getAttribute("name")?.trim();
+		this.provinceName = name || this.provinceID;
+		
+		name = document.getElementById(this.regencyID)?.getAttribute("name")?.trim();
+		this.regencyName = name || this.regencyID;
+		
+		name = document.getElementById(this.districtID)?.getAttribute("name")?.trim();
+		this.districtName = name || this.districtID;
+		
+		name = document.getElementById(this.villageID)?.getAttribute("name")?.trim();
+		this.villageName = name || this.villageID;
+		
+	}
+	
+	//check first option
+	checkCurrentLabel() {
+		
+		const keys = ['province', 'regency', 'district', 'village'];
+
+		keys.forEach(key => {
+			const el = document.getElementById(window[`${key}ID`] || this[`${key}ID`]); // Grabs element using your ID variables
+			if (!el) return;
+
+			if (el.length > 0) {
+				el.length = 1;
+				this[`${key}Label`] = el.value;
+			} else {
+				el.appendChild(new Option(this[`${key}Label`]));
+			}
+		});
+		
 	}
 	
 	async fetchingAPI(url) {
@@ -178,6 +213,19 @@ class Wilayah {
 		
 	}
 	
+	async performFetchingProvinces() {
+		
+		const data = await this.getProvinces();
+		const selects = document.getElementById(this.provinceID);
+		data.forEach( province => {
+			const options = document.createElement("option")
+			options.value = province.code;
+			options.textContent = province.name;
+			selects.appendChild(options);
+		});
+		
+	}
+	
 	performChangingSelect() {
 		
 		document.getElementById(this.provinceID).addEventListener("change", e => {
@@ -193,5 +241,6 @@ class Wilayah {
 		});
 		
 	}
-	
+
+		
 }
