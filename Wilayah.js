@@ -111,7 +111,7 @@ class Wilayah {
 		const firstOption = "<option>"+label+"</option>";
 		
 		document.write(openerTag + firstOption + closeTag);
-		if(cssClass) document.getElementById(this.provinceID).classList.add(cssClass);
+		if(cssClass) document.getElementById(this.provinceID).classList.add(...cssClass.trim().split(/\s+/));
 		
 		const data = await this.getProvinces();
 		const selects = document.getElementById(this.provinceID);
@@ -132,7 +132,7 @@ class Wilayah {
 		const firstOption = "<option>"+label+"</option>";
 		
 		document.write(openerTag + firstOption + closeTag);
-		if(cssClass) document.getElementById(this.regencyID).classList.add(cssClass);
+		if(cssClass) document.getElementById(this.regencyID).classList.add(...cssClass.trim().split(/\s+/));
 		
 	}
 	
@@ -164,7 +164,7 @@ class Wilayah {
 		const firstOption = "<option>"+label+"</option>";
 		
 		document.write(openerTag + firstOption + closeTag);
-		if(cssClass) document.getElementById(this.districtID).classList.add(cssClass);
+		if(cssClass) document.getElementById(this.districtID).classList.add(...cssClass.trim().split(/\s+/));
 		
 	}
 	
@@ -194,7 +194,7 @@ class Wilayah {
 		const firstOption = "<option>"+label+"</option>";
 		
 		document.write(openerTag + firstOption + closeTag);
-		if(cssClass) document.getElementById(this.villageID).classList.add(cssClass);		
+		if(cssClass) document.getElementById(this.villageID).classList.add(...cssClass.trim().split(/\s+/));		
 		
 	}
 
