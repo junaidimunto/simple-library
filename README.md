@@ -1,7 +1,7 @@
 This library is still under development, and I am open to feedback, suggestions, and ideas that can help improve its functionality and usability. Feel free to share your thoughts or suggestions.
 
 ### Wilayah.js
-
+  **Live Demo** is available, check [this one](https://junaidimunto.github.io/simple-library/wilayah.html) out!
 1. **Online API required**
    This library uses vanilla js and works online fetching regional data from the [Kode Wilayah API](https://kodewilayah.web.id). Thanks to [@sukristyan](https://github.com/sukristyan) for developing this awsome API.
 
