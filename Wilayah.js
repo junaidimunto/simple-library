@@ -26,11 +26,16 @@ class Wilayah {
 		//defining some config for further use
 		this.config = {
 			baseAPIUrl : this.BASE_API_URL,
+			notificationElementID : "wilayah-simple-notification",
+			notificationHideClass : "wilayah-hide",
+			notificationTimeout : 5000,
+			notificationStyle : "position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: #ff4d4d; color: white; padding: 8px 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);",
 			warnUnselectedOption : false,
-			unselectedOptionStyle : 'border-color:red;font-weight:normal;'
+			unselectedOptionClass : "wilayah-unselected-option",
+			unselectedOptionStyle : "border-color: red; font-weight: normal;",
 		};
 		
-		//alwys create custom style for acomodate config style
+		//always create custom style for accomodate config style
 		this.createStyle(this.config.unselectedOptionStyle);
 		
 		//create simple hidden notification
@@ -243,7 +248,7 @@ class Wilayah {
 	
 	performChangingSelect() {
 		const ids = [this.provinceID, this.regencyID, this.districtID, this.villageID];
-		const cls = this.config.warnUnselectedOption ? "wilayah-unselected-option" : "wilayah-selected-option";
+		const cls = this.config.warnUnselectedOption ? this.config.unselectedOptionClass : "";
 
 		// 1. Ambil element utama dan helper untuk validasi nilai kosong
 		const provEl = document.getElementById(this.provinceID);
@@ -286,7 +291,7 @@ class Wilayah {
 		// Check if any stylesheet already contains the selector .wilayah-unselected-option
 		const classExists = Array.from(document.styleSheets).some(sheet => {
 			try {
-				return Array.from(sheet.cssRules).some(rule => rule.selectorText === '.wilayah-unselected-option');
+				return Array.from(sheet.cssRules).some(rule => rule.selectorText === "."+this.config.unselectedOptionClass);
 			} catch (e) {
 				// Avoids SecurityErrors from cross-origin stylesheets (like Google Fonts)
 				return false; 
@@ -296,7 +301,7 @@ class Wilayah {
 		// If it doesn't exist, inject it
 		if (!classExists) {
 			const style = document.createElement('style');
-			style.textContent = '.wilayah-unselected-option{'+unselectedOptionStyle+'} .wilayah-hide{display:none !important;} ';
+			style.textContent = "."+this.config.unselectedOptionClass+"{"+unselectedOptionStyle+"}";
 			document.head.appendChild(style);
 		}
 		
@@ -304,33 +309,33 @@ class Wilayah {
 	
 	simpleNotification(textMessage) {
 		
-		const notification = document.getElementById('wilayah-simple-notification');
+		const notification = document.getElementById(this.config.notificationElementID);
 		notification.innerHTML = textMessage;
 		
 		// 1. Reveal the element by removing the hide class
-		notification.classList.remove('wilayah-hide');
+		notification.classList.remove(this.config.notificationHideClass);
 		
 		// 2. Wait 5000ms (5 seconds) then hide it again
 		setTimeout(() => {
-			notification.classList.add('wilayah-hide');
-		}, 5000);
+			notification.classList.add(this.config.notificationHideClass);
+		}, this.config.notificationTimeout);
 	}
 	
 	createSimpleNotification(innerText) {
 		
 		const style = document.createElement('style');
-		style.textContent = "#wilayah-simple-notification { position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: #ff4d4d; color: white; padding: 8px 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); } ";
+		style.textContent = "#"+this.config.notificationElementID+"{"+this.config.notificationStyle+"}";
 		document.head.appendChild(style);
 		
 		// 2. Create the notification div, set its properties, and append it right before </body>
 		const div = document.createElement('div');
-		div.id = 'wilayah-simple-notification';
-		div.className = 'wilayah-hide';
+		div.id = this.config.notificationElementID;
+		div.className = this.config.notificationHideClass;
 		div.innerHTML = innerText;
 		
 		
-		if(!document.getElementById('wilayah-simple-notification'))
-			document.body.appendChild(div); // This injects it right before </body>
+		if(!document.getElementById(this.config.notificationElementID))
+			document.body.appendChild(div);
 		
 	}
 
