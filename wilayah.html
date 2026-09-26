@@ -113,13 +113,14 @@
 	<script>
 		wilayahlu = new Wilayah("theProvince", "theRegency", "theDistrict", "theVillage");
 		wilayahlu.performFetchingProvinces();
+		wilayahlu.config.warnUnselectedOption = true; //should be placed before performChangingSelect
 		wilayahlu.performChangingSelect();
 	</script>
 	
 	<h2>Example 4</h2>
 	<select id="provinceQu"></select> <br>
 	<select id="regencyQu"></select> <br>
-	<select id="districtQu"></select> <br>
+	<select id="districtQu"><option>Pilihlah kecamatan</option></select> <br>
 	<select id="villageQu"></select> <br>
 	<!-- script Wilayah.js already loaded before -->
 	<script>
@@ -127,6 +128,5 @@
 		wilayahqu.performFetchingProvinces();
 		wilayahqu.performChangingSelect();
 	</script>
-	
 </body>
 <html>
