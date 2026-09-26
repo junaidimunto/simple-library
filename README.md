@@ -20,7 +20,7 @@ This library is still under development, and I am open to feedback, suggestions,
    <select id="the-district" name="district"></select> <br>
    <select id="the-village" name="village"></select>
    
-   <script src="https://cdn.jsdelivr.net/gh/junaidimunto/simple-library@4036918/Wilayah.js"></script>
+   <script src="https://cdn.jsdelivr.net/gh/junaidimunto/simple-library@6bc472f/Wilayah.js"></script>
    <script>
       const wilayah = new Wilayah("the-province", "the-regency", "the-district", "the-village");
       wilayah.performFetchingProvinces();
