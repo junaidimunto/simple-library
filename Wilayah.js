@@ -5,38 +5,53 @@ class Wilayah {
 		//need a validation before use so the rules not broken	
 		this.BASE_API_URL	= "https://api.kodewilayah.web.id";
 		
-		//tag select ID and name are identic : default value is right there
-		this.provinceID 	= provinceID !== "" ? provinceID : "provinceSelect" ;
-		this.regencyID 		= regencyID !== "" ? regencyID : "regencySelect";
-		this.districtID		= districtID !== "" ? districtID : "districtSelect";
-		this.villageID 		= villageID !== "" ? villageID : "villageSelect";
+		//defining some config for further use
+		this.config = {
+			
+			baseAPIUrl : this.BASE_API_URL,
+			
+			wilayahHideClass 				: "wilayah-hide",										//default value can be changed
+			wilayahHideStyle 				: "display: none !important;",			//to prevent collision with existing Classes
+			
+			notificationElementID 	: "wilayah-simple-notification",		//default value can be changed
+			notificationTimeout 		: 3000,
+			notificationStyle 			: "position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: #ff4d4d; color: white; padding: 8px 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);",
+			
+			warnUnselectedOption 		: false,
+			unselectedOptionClass 	: "wilayah-unselected-option",									//default value can be changed
+			unselectedOptionStyle 	: "border-color: red; font-weight: normal;",
+			
+			selectElementProvinceID : "provinceSelect",			//default value can be changed
+			selectElementRegencyID 	: "regencySelect",			//to prevent collision with existing IDs
+			selectElementDistrictID : "districtSelect",
+			selectElementVillageID 	: "villageSelect",
+			
+			selectLabelProvince			: "Pilih provinsi",			//default value can be changed
+			selectLabelRegency			: "Pilih kabupaten",		//it's not affecting the output structures
+			selectLabelDistrict			: "Pilih kecamatan",
+			selectLabelVillage			: "Pilih kelurahan",
+		};
 		
-		//check current existing select tags
+		//handling empty defined id
+		this.provinceID	= provinceID.trim()	!== "" ? provinceID	: this.config.selectElementProvinceID ;
+		this.regencyID	= regencyID.trim()	!== "" ? regencyID	: this.config.selectElementRegencyID;
+		this.districtID	= districtID.trim()	!== "" ? districtID	: this.config.selectElementDistrictID;
+		this.villageID	= villageID.trim()	!== "" ? villageID	: this.config.selectElementVillageID;
+		
+		//check current existing select tags name
 		this.checkCurrentSelect();
 		
-		//label for first option, default in bahasa
-		this.provinceLabel = "Pilih provinsi";
-		this.regencyLabel  = "Pilih kabupaten";
-		this.districtLabel = "Pilih kecamatan";
-		this.villageLabel  = "Pilih kelurahan";
+		this.provinceLabel = this.config.selectLabelProvince;
+		this.regencyLabel  = this.config.selectLabelRegency;
+		this.districtLabel = this.config.selectLabelDistrict;
+		this.villageLabel  = this.config.selectLabelVillage;
 		
 		//check current existing first option as label
 		this.checkCurrentLabel();
 		
-		//defining some config for further use
-		this.config = {
-			baseAPIUrl : this.BASE_API_URL,
-			notificationElementID : "wilayah-simple-notification",
-			notificationHideClass : "wilayah-hide",
-			notificationTimeout : 5000,
-			notificationStyle : "position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: #ff4d4d; color: white; padding: 8px 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);",
-			warnUnselectedOption : false,
-			unselectedOptionClass : "wilayah-unselected-option",
-			unselectedOptionStyle : "border-color: red; font-weight: normal;",
-		};
-		
 		//always create custom style for accomodate config style
-		this.createStyle(this.config.unselectedOptionStyle);
+		this.createStyle("."+this.config.wilayahHideClass, this.config.wilayahHideStyle);
+		this.createStyle("."+this.config.unselectedOptionClass, this.config.unselectedOptionStyle);
 		
 		//create simple hidden notification
 		this.createSimpleNotification("Notification here!");
@@ -52,11 +67,25 @@ class Wilayah {
 		
 		const getName = (id) => document.getElementById(id)?.getAttribute("name")?.trim() || id;
 
-		this.provinceName = getName(this.provinceID);
-		this.regencyName = getName(this.regencyID);
-		this.districtName = getName(this.districtID);
-		this.villageName = getName(this.villageID);
+		this.provinceName	= getName(this.provinceID);
+		this.regencyName	= getName(this.regencyID);
+		this.districtName	= getName(this.districtID);
+		this.villageName	= getName(this.villageID);
 		
+	}
+	
+	doubleCheckSelectName() {
+		if(!document.getElementById(this.provinceID).hasAttribute("name"))
+			document.getElementById(this.provinceID).setAttribute("name", this.provinceName);
+		
+		if(!document.getElementById(this.regencyID).hasAttribute("name"))
+			document.getElementById(this.regencyID).setAttribute("name", this.regencyName);
+		
+		if(!document.getElementById(this.districtID).hasAttribute("name"))
+			document.getElementById(this.districtID).setAttribute("name", this.districtName);
+		
+		if(!document.getElementById(this.villageID).hasAttribute("name"))
+			document.getElementById(this.villageID).setAttribute("name", this.villageName);
 	}
 	
 	//check first option
@@ -65,7 +94,7 @@ class Wilayah {
 		const keys = ['province', 'regency', 'district', 'village'];
 
 		keys.forEach(key => {
-			const el = document.getElementById(window[`${key}ID`] || this[`${key}ID`]); // Grabs element using your ID variables
+			const el = document.getElementById(window[`${key}ID`] || this[`${key}ID`]); // Grabs element using ID variables
 			if (!el) return;
 
 			if (el.length > 0) {
@@ -101,7 +130,7 @@ class Wilayah {
 			//alert("Something went wrong when fetching data!");
 			//most likely no internet connection
 			//so lets make notification to default selector tag
-			this.simpleNotification("Something went wrong, check your internet connection!");
+			this.simpleNotification("Check your internet connection!");
 
 		}
 		
@@ -247,8 +276,12 @@ class Wilayah {
 	}
 	
 	performChangingSelect() {
+		
+		//give name attr if empty
+		this.doubleCheckSelectName();
+		
 		const ids = [this.provinceID, this.regencyID, this.districtID, this.villageID];
-		const cls = this.config.warnUnselectedOption ? this.config.unselectedOptionClass : "";
+		const cls = (this.config.warnUnselectedOption) ? this.config.unselectedOptionClass : "your-class-here";
 
 		// 1. Ambil element utama dan helper untuk validasi nilai kosong
 		const provEl = document.getElementById(this.provinceID);
@@ -286,12 +319,12 @@ class Wilayah {
 		});
 	}
 	
-	createStyle(unselectedOptionStyle) {
+	createStyle(ruleSelector, ruleValue) {
 		
 		// Check if any stylesheet already contains the selector .wilayah-unselected-option
 		const classExists = Array.from(document.styleSheets).some(sheet => {
 			try {
-				return Array.from(sheet.cssRules).some(rule => rule.selectorText === "."+this.config.unselectedOptionClass);
+				return Array.from(sheet.cssRules).some(rule => rule.selectorText === ruleSelector);
 			} catch (e) {
 				// Avoids SecurityErrors from cross-origin stylesheets (like Google Fonts)
 				return false; 
@@ -301,7 +334,7 @@ class Wilayah {
 		// If it doesn't exist, inject it
 		if (!classExists) {
 			const style = document.createElement('style');
-			style.textContent = "."+this.config.unselectedOptionClass+"{"+unselectedOptionStyle+"}";
+			style.textContent = ruleSelector+"{"+ruleValue+"}";
 			document.head.appendChild(style);
 		}
 		
@@ -313,11 +346,11 @@ class Wilayah {
 		notification.innerHTML = textMessage;
 		
 		// 1. Reveal the element by removing the hide class
-		notification.classList.remove(this.config.notificationHideClass);
+		notification.classList.remove(this.config.wilayahHideClass);
 		
 		// 2. Wait 5000ms (5 seconds) then hide it again
 		setTimeout(() => {
-			notification.classList.add(this.config.notificationHideClass);
+			notification.classList.add(this.config.wilayahHideClass);
 		}, this.config.notificationTimeout);
 	}
 	
@@ -330,7 +363,7 @@ class Wilayah {
 		// 2. Create the notification div, set its properties, and append it right before </body>
 		const div = document.createElement('div');
 		div.id = this.config.notificationElementID;
-		div.className = this.config.notificationHideClass;
+		div.className = this.config.wilayahHideClass;
 		div.innerHTML = innerText;
 		
 		
@@ -338,6 +371,5 @@ class Wilayah {
 			document.body.appendChild(div);
 		
 	}
-
 		
 }
