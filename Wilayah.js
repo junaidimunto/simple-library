@@ -374,7 +374,7 @@ if !isValidInteger(provinceCode) return;
 		
 	}
 
-function isValidInteger(value) {
+isValidInteger(value) {
   // Convert to number, then check if it's a safe integer
   return Number.isInteger(Number(value)) && value !== '';
 }
