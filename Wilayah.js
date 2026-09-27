@@ -193,7 +193,9 @@ class Wilayah {
 		//district and village Reset
 		document.getElementById(this.districtID).length = 1;
 		document.getElementById(this.villageID).length = 1;
-		
+
+if !isValidInteger(provinceCode) return;
+
 		const data = await this.getRegencies(provinceCode);
 		data.forEach( regency => {
 			const options = document.createElement("option")
@@ -371,5 +373,11 @@ class Wilayah {
 			document.body.appendChild(div);
 		
 	}
+
+function isValidInteger(value) {
+  // Convert to number, then check if it's a safe integer
+  return Number.isInteger(Number(value)) && value !== '';
+}
+
 		
 }
