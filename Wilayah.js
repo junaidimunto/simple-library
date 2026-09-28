@@ -195,7 +195,7 @@ class Wilayah {
 		document.getElementById(this.villageID).length = 1;
 
 		//terminate if select first option to avoid error fetch
-		if !isValidInteger(provinceCode) return;
+		//if !isValidInteger(provinceCode) return;
 
 		const data = await this.getRegencies(provinceCode);
 		data.forEach( regency => {
@@ -229,7 +229,7 @@ class Wilayah {
 		document.getElementById(this.villageID).length = 1;
 
 		//terminate if select first option to avoid error fetch
-		if !isValidInteger(provinceCode) return;
+		//if !isValidInteger(provinceCode) return;
 		
 		const data = await this.getDistricts(regencyCode);
 		data.forEach( district => {
@@ -379,8 +379,14 @@ class Wilayah {
 	}
 
 	isValidInteger(value) {
-		// Convert to number, then check if it's a safe integer
-		return Number.isInteger(Number(value)) && value !== '';
+		value = Number.parseInt(value);
+		if isNaN(value) {
+			return false;
+		} else if (value < 1) {
+			return false;
+		} else {
+			return true
+		}
 	}
 
 		
