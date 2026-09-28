@@ -8,23 +8,23 @@ class Wilayah {
 		//defining some config for further use
 		this.config = {
 			
-			baseAPIUrl : this.BASE_API_URL,
+			baseAPIUrl							: this.BASE_API_URL,
 			
-			wilayahHideClass 				: "wilayah-hide",										//default value can be changed
-			wilayahHideStyle 				: "display: none !important;",			//to prevent collision with existing Classes
+			wilayahHideClass				: "wilayah-hide",										//default value can be changed
+			wilayahHideStyle				: "display: none !important;",			//to prevent collision with existing Classes
 			
-			notificationElementID 	: "wilayah-simple-notification",		//default value can be changed
-			notificationTimeout 		: 3000,
-			notificationStyle 			: "position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: #ff4d4d; color: white; padding: 8px 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);",
+			notificationElementID		: "wilayah-simple-notification",		//default value can be changed
+			notificationTimeout			: 3000,
+			notificationStyle				: "position: fixed; bottom: 20px; right: 20px; z-index: 9999; background-color: #ff4d4d; color: white; padding: 8px 18px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);",
 			
-			warnUnselectedOption 		: false,
-			unselectedOptionClass 	: "wilayah-unselected-option",									//default value can be changed
-			unselectedOptionStyle 	: "border-color: red; font-weight: normal;",
+			warnUnselectedOption		: false,
+			unselectedOptionClass		: "wilayah-unselected-option",									//default value can be changed
+			unselectedOptionStyle		: "border-color: red; font-weight: normal;",
 			
-			selectElementProvinceID : "provinceSelect",			//default value can be changed
-			selectElementRegencyID 	: "regencySelect",			//to prevent collision with existing IDs
-			selectElementDistrictID : "districtSelect",
-			selectElementVillageID 	: "villageSelect",
+			selectElementProvinceID	: "provinceSelect",			//default value can be changed
+			selectElementRegencyID	: "regencySelect",			//to prevent collision with existing IDs
+			selectElementDistrictID	: "districtSelect",
+			selectElementVillageID	: "villageSelect",
 			
 			selectLabelProvince			: "Pilih provinsi",			//default value can be changed
 			selectLabelRegency			: "Pilih kabupaten",		//it's not affecting the output structures
